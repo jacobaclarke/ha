@@ -1,12 +1,16 @@
 blueprint:
-  name: Sync two entities
+  name: Sync two switches
   description: Turn on a switch when other one is turend on and vice versa
   domain: automation
   input:
     switch_entity1:
       name: Switch 1
+      selector:
+        entity:
     switch_entity2:
       name: Switch 2
+      selector:
+        entity:
 variables:
   switch_entity1: !input switch_entity1
   switch_entity2: !input switch_entity2
