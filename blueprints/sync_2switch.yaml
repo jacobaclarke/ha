@@ -5,14 +5,14 @@ blueprint:
   input:
     switch_entity1:
       name: Switch 1
-      selector:
-        entity:
-          domain: switch
+      # selector:
+      #   entity:
+      #     domain: switch
     switch_entity2:
       name: Switch 2
-      selector:
-        entity:
-          domain: switch
+      # selector:
+      #   entity:
+      #     domain: switch
 variables:
   switch_entity1: !input switch_entity1
   switch_entity2: !input switch_entity2
