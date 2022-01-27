@@ -1,0 +1,45 @@
+blueprint:
+  name: Sync two switches
+  description: Turn on a switch when other one is turend on and vice versa
+  domain: automation
+  input:
+    switch_entity1:
+      name: Switch 1
+      selector:
+        entity:
+          domain: switch
+    switch_entity2:
+      name: Switch 2
+      selector:
+        entity:
+          domain: switch
+variables:
+  switch_entity1: !input switch_entity1
+  switch_entity2: !input switch_entity2
+trigger:
+  - platform: state
+    entity_id: 
+      - !input switch_entity1
+      - !input switch_entity2
+    from: 'on'
+    to: 'off'
+  - platform: state
+    entity_id: 
+      - !input switch_entity1
+      - !input switch_entity2
+    from: 'off'
+    to: 'on'
+action:
+  service_template: >
+    {% if trigger.to_state.state == 'on' %}
+    switch.turn_on
+    {% elif trigger.to_state.state == 'off' %}
+    switch.turn_off
+    {% endif %}
+  data_template: 
+    entity_id: >
+      {% if trigger.from_state.entity_id == switch_entity1 %}
+      {{ switch_entity2 }}
+      {% elif trigger.from_state.entity_id == switch_entity2 %}
+      {{ switch_entity1 }}
+      {% endif %}
